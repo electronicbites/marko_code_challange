@@ -23,8 +23,8 @@ defmodule ChallengeWeb.Router do
       live("/page_a", PageALive.Index, :index)
       live("/page_b", PageBLive.Index, :index)
       live("/page_c", PageCLive.Index, :index)
-      live("/page_c/tab_1", PageCLive, :tab_1)
-      live("/page_c/tab_2", PageCLive, :tab_2)
+      live("/page_c/tab_1", PageCLive.Index, :tab_1)
+      live("/page_c/tab_2", PageCLive.Index, :tab_2)
     end
   end
 

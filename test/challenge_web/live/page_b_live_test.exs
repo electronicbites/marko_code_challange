@@ -21,16 +21,16 @@ defmodule ChallengeWeb.PageBLive.IndexTest do
       assert conn.resp_body =~ "Welcome to Page A"
     end
 
-    test "renders links to page C", %{conn: conn} do
+    test "renders links to page C Tab 2", %{conn: conn} do
       {:ok, live, _html} = live(conn, ~p"/page_b")
 
       {:ok, conn} =
         live
-        |> element(~s{a[href="/page_c"]})
+        |> element(~s{a[href="/page_c/tab_2"]})
         |> render_click()
-        |> follow_redirect(conn, ~p"/page_c")
+        |> follow_redirect(conn, ~p"/page_c/tab_2")
 
-      assert conn.resp_body =~ "Welcome to Page C"
+      assert conn.resp_body =~ "Welcome to Page C, Tab 2"
     end
   end
 end

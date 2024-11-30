@@ -1,10 +1,11 @@
-<div id="page-b-live" class="page-b-live">
-  <div class="page-b-live__header">
-    <h1 class="page-b-live__title">Welcome to Page B</h1>
-    <.link href={~p"/"}>🏠 Home</.link>
-  </div>
-  <div class="links">
-    <.link href={~p"/page_a"}>🔗 Go to Page A</.link>
-    <.link href={~p"/page_c"}>🔗 Go to Page C</.link>
+<div class="bg-white shadow sm:rounded-lg">
+  <div class="px-4 py-5 sm:p-6">
+    <h1 class="text-2xl font-semibold text-gray-900 mb-6">Welcome to Page B</h1>
+    <div class="space-x-4">
+      <.link href={~p"/page_a"} class="text-indigo-600 hover:text-indigo-900">Go to Page A</.link>
+      <.link href={~p"/page_c/tab_2"} class="text-indigo-600 hover:text-indigo-900">
+        Go to Page C (Tab 2)
+      </.link>
+    </div>
   </div>
 </div>
