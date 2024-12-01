@@ -1,16 +1,22 @@
 defmodule ChallengeWeb.PageCLive.Index do
   use ChallengeWeb, :live_view
+  alias ChallengeWeb.Live.UserPresence
 
-  def mount(_params, _session, socket) do
+  @impl true
+  def mount(_params, session, socket) do
+    socket = UserPresence.keep_session_id(socket, session)
     {:ok, assign(socket, current_tab: "tab_1", page_title: "Page C")}
   end
 
+  @impl true
   def handle_params(_params, uri, socket) do
     cond do
       uri |> String.ends_with?("/page_c/tab_2") ->
+        UserPresence.track_session(socket.assigns, __MODULE__ |> to_string())
         {:noreply, assign(socket, current_tab: "tab_2", page_title: "Page C, Tab 2")}
 
       uri |> String.ends_with?("/page_c/tab_1") ->
+        UserPresence.track_session(socket.assigns, __MODULE__ |> to_string())
         {:noreply, assign(socket, current_tab: "tab_1", page_title: "Page C, Tab 1")}
 
       true ->
@@ -20,6 +26,14 @@ defmodule ChallengeWeb.PageCLive.Index do
     end
   end
 
+  @impl true
+  def terminate(_reason, socket) do
+    UserPresence.save_pageview(socket.assigns)
+
+    :ok
+  end
+
+  @impl true
   def render(assigns) do
     ~H"""
     <.live_component module={ChallengeWeb.TabsComponent} id="tabs" current_tab={@current_tab} />

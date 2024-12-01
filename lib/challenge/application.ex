@@ -12,6 +12,7 @@ defmodule Challenge.Application do
       Challenge.Repo,
       {DNSCluster, query: Application.get_env(:challenge, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Challenge.PubSub},
+      ChallengeWeb.Presence,
       # Start the Finch HTTP client for sending emails
       {Finch, name: Challenge.Finch},
       # Start a worker by calling: Challenge.Worker.start_link(arg)
