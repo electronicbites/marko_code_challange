@@ -18,4 +18,10 @@ defmodule ChallengeWeb.PageALive.Index do
     LiveTracking.save_pageview(socket.assigns)
     :ok
   end
+
+  @impl true
+  def handle_event("update_engagement_time", _params, socket) do
+    IO.inspect("update_engagement_time")
+    {:noreply, socket}
+  end
 end
