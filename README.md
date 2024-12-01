@@ -3,9 +3,9 @@
 
 - The most challenging part was to track the time spent on a page.
   My plan was to use Presence to track the time spent on a page but time was running out
-  and I could not finish it.
+  and I could not finish it. Perhaps this was not the best idea, but my thought I would need a server process to track the
+  times anyway, so why not use something that already exists which is already realtime connected to the clients.
 - also took my a while: to pass a session from a plug to the liveview
-- interesting: livesssion heard, but never used.
 - but pageviews are tracked in the database. But only after exiting the page. Thats due the fact that I could
   not track the time spent on a page.
 - I used a plug to handle the sessions
