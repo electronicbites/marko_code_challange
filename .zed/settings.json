@@ -1,0 +1,7 @@
+{
+  "languages": {
+    "Elixir": {
+      "language_servers": ["next-ls", "!elixir-ls", "..."]
+    }
+  }
+}
