@@ -1,13 +1,16 @@
 
 # my remarks
 
-- The most challenging part, to pass a session from a plug to the liveview
-- livesssion heard, but never used
-- engagement time: I prepared a function to calculate the time spent on a page, but it does not work yet.
-  My plan was to use Presence to track the time spent on a page.
+- The most challenging part was to track the time spent on a page.
+  My plan was to use Presence to track the time spent on a page but time was running out
+  and I could not finish it.
+- also took my a while: to pass a session from a plug to the liveview
+- interesting: livesssion heard, but never used.
+- but pageviews are tracked in the database. But only after exiting the page. Thats due the fact that I could
+  not track the time spent on a page.
+- I used a plug to handle the sessions
 
 You can find my solution on fly.io: [https://markochallenge.fly.dev/](https://markochallenge.fly.dev/)
-
 
 
 # Coding_challenge

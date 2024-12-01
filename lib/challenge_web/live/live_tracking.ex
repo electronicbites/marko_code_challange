@@ -1,8 +1,8 @@
-defmodule ChallengeWeb.Live.UserPresence do
+defmodule ChallengeWeb.Live.LiveTracking do
   @moduledoc """
   Tracking Session for LiveViews#
   """
-  alias Challenge.Tracking
+  alias Challenge.TrackingRepository
   alias ChallengeWeb.Presence
 
   use Phoenix.LiveView
@@ -10,10 +10,7 @@ defmodule ChallengeWeb.Live.UserPresence do
   require Logger
 
   def track_session(%{tracking_session_id: tracking_session_id}, page) do
-    topic = "tracking:#{tracking_session_id}"
-
-    Phoenix.PubSub.subscribe(Challenge.PubSub, topic)
-    Tracking.track_user_presence(tracking_session_id, page)
+    Presence.track_user_presence(tracking_session_id, page)
   end
 
   def track_session(assigns, _page) do
@@ -25,7 +22,8 @@ defmodule ChallengeWeb.Live.UserPresence do
 
     case Presence.get_by_key(topic, tracking_session_id) do
       %{metas: [%{engagement_time: time, view_module: view_module} | _]} ->
-        Tracking.save_pageview(tracking_session_id, view_module, time)
+        TrackingRepository.save_pageview(tracking_session_id, view_module, time)
+
       _ ->
         :ok
     end

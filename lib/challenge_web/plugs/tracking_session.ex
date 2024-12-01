@@ -1,6 +1,6 @@
 defmodule ChallengeWeb.Plugs.TrackingSession do
   import Plug.Conn
-  alias Challenge.Tracking
+  alias Challenge.TrackingRepository
 
   @cookie_name "tracking_id"
   # 1 year
@@ -24,7 +24,7 @@ defmodule ChallengeWeb.Plugs.TrackingSession do
     browser_agent = get_req_header(conn, "user-agent") |> List.first() || "unknown"
 
     {:ok, session} =
-      Tracking.create_session(%{
+      TrackingRepository.create_session(%{
         cookie_id: cookie_id,
         browser_agent: browser_agent
       })
@@ -36,7 +36,7 @@ defmodule ChallengeWeb.Plugs.TrackingSession do
   end
 
   defp assign_existing_session(conn, cookie_id) do
-    session = Tracking.get_session_by_cookie_id(cookie_id)
+    session = TrackingRepository.get_session_by_cookie_id(cookie_id)
 
     conn
     |> assign(:tracking_session_id, session.id)

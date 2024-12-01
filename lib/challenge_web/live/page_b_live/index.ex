@@ -1,13 +1,13 @@
 defmodule ChallengeWeb.PageBLive.Index do
   use ChallengeWeb, :live_view
-  alias ChallengeWeb.Live.UserPresence
+  alias ChallengeWeb.Live.LiveTracking
 
   @impl true
   def mount(_params, session, socket) do
-    socket = UserPresence.keep_session_id(socket, session)
+    socket = LiveTracking.keep_session_id(socket, session)
 
     if connected?(socket) do
-      UserPresence.track_session(socket.assigns, __MODULE__ |> to_string())
+      LiveTracking.track_session(socket.assigns, __MODULE__ |> to_string())
     end
 
     socket =
@@ -19,7 +19,7 @@ defmodule ChallengeWeb.PageBLive.Index do
 
   @impl true
   def terminate(_reason, socket) do
-    UserPresence.save_pageview(socket.assigns)
+    LiveTracking.save_pageview(socket.assigns)
 
     :ok
   end

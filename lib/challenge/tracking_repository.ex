@@ -1,17 +1,9 @@
-defmodule Challenge.Tracking do
+defmodule Challenge.TrackingRepository do
+  @moduledoc """
+    Repository for tracking data
+  """
   alias Challenge.Repo
   alias Challenge.Tracking.{Session, PageView}
-  alias ChallengeWeb.Presence
-
-  def track_user_presence(session_id, view_module) do
-    topic = "tracking:#{session_id}"
-
-    Presence.track(self(), topic, session_id, %{
-      view_module: view_module,
-      joined_at: System.system_time(:second),
-      engagement_time: 0
-    })
-  end
 
   def create_session(attrs) do
     %Session{}
@@ -31,9 +23,5 @@ defmodule Challenge.Tracking do
       engagement_time: engagement_time
     })
     |> Repo.insert()
-  end
-
-  def list_active_sessions do
-    Presence.list("tracking:global")
   end
 end

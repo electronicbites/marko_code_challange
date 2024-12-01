@@ -8,4 +8,14 @@ defmodule ChallengeWeb.Presence do
   use Phoenix.Presence,
     otp_app: :challenge,
     pubsub_server: Challenge.PubSub
+
+  def track_user_presence(session_id, view_module) do
+    topic = "tracking:#{session_id}"
+
+    track(self(), topic, session_id, %{
+      view_module: view_module,
+      joined_at: System.system_time(:second),
+      engagement_time: 0
+    })
+  end
 end

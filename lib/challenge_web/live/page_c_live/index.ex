@@ -1,10 +1,10 @@
 defmodule ChallengeWeb.PageCLive.Index do
   use ChallengeWeb, :live_view
-  alias ChallengeWeb.Live.UserPresence
+  alias ChallengeWeb.Live.LiveTracking
 
   @impl true
   def mount(_params, session, socket) do
-    socket = UserPresence.keep_session_id(socket, session)
+    socket = LiveTracking.keep_session_id(socket, session)
     {:ok, assign(socket, current_tab: "tab_1", page_title: "Page C")}
   end
 
@@ -12,11 +12,11 @@ defmodule ChallengeWeb.PageCLive.Index do
   def handle_params(_params, uri, socket) do
     cond do
       uri |> String.ends_with?("/page_c/tab_2") ->
-        UserPresence.track_session(socket.assigns, __MODULE__ |> to_string())
+        LiveTracking.track_session(socket.assigns, __MODULE__ |> to_string())
         {:noreply, assign(socket, current_tab: "tab_2", page_title: "Page C, Tab 2")}
 
       uri |> String.ends_with?("/page_c/tab_1") ->
-        UserPresence.track_session(socket.assigns, __MODULE__ |> to_string())
+        LiveTracking.track_session(socket.assigns, __MODULE__ |> to_string())
         {:noreply, assign(socket, current_tab: "tab_1", page_title: "Page C, Tab 1")}
 
       true ->
@@ -28,7 +28,7 @@ defmodule ChallengeWeb.PageCLive.Index do
 
   @impl true
   def terminate(_reason, socket) do
-    UserPresence.save_pageview(socket.assigns)
+    LiveTracking.save_pageview(socket.assigns)
 
     :ok
   end
