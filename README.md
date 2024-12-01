@@ -9,6 +9,9 @@
 - but pageviews are tracked in the database. But only after exiting the page. Thats due the fact that I could
   not track the time spent on a page.
 - I used a plug to handle the sessions
+- using the database for tracking the engagement time is not the best idea. This was the first quick and dirty solution.
+  In the long term something like ETS should be used (depends on the expected user load). But this is harder to debug
+  since it is in memory.
 
 You can find my solution on fly.io: [https://markochallenge.fly.dev/](https://markochallenge.fly.dev/)
 
