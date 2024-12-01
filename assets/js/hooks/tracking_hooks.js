@@ -1,43 +1,44 @@
 let TrackingHooks = {
-    mounted() {
-        this.startTime = Date.now()
-        this.isVisible = true
-        this.lastUpdate = this.startTime
+  mounted() {
+    this.startTime = Date.now();
+    this.isVisible = true;
+    this.lastUpdate = this.startTime;
 
-        document.addEventListener("visibilitychange", () => {
-            if (document.hidden) {
-                this.isVisible = false
-                this.updateEngagementTime()
-            } else {
-                this.isVisible = true
-                this.lastUpdate = Date.now()
-            }
-        })
+    const self = this; // Store reference to correct 'this'
 
-        // Update engagement time periodically while page is visible
-        this.timer = setInterval(() => {
-                if (this.isVisible) {
-                    this.updateEngagementTime()
-                }
-            }, 5000) // Update every 5 seconds
-    },
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        self.isVisible = false;
+        self.updateEngagementTime();
+      } else {
+        self.isVisible = true;
+        self.lastUpdate = Date.now();
+      }
+    });
 
-    destroyed() {
-        if (this.timer) {
-            clearInterval(this.timer)
-        }
-        this.updateEngagementTime()
-    },
+    this.timer = setInterval(() => {
+      if (self.isVisible) {
+        self.updateEngagementTime();
+      }
+    }, 5000); // Changed to actual 5 seconds
+  },
 
-    updateEngagementTime() {
-        if (this.isVisible) {
-            const now = Date.now()
-            const additionalTime = Math.floor((now - this.lastUpdate) / 1000)
-            this.lastUpdate = now
-
-            this.pushEvent("update_engagement_time", { time: additionalTime })
-        }
+  destroyed() {
+    if (this.timer) {
+      clearInterval(this.timer);
     }
-}
+    this.updateEngagementTime();
+  },
 
-export default TrackingHooks
+  updateEngagementTime() {
+    if (this.isVisible) {
+      const now = Date.now();
+      const additionalTime = Math.floor((now - this.lastUpdate) / 1000);
+      this.lastUpdate = now;
+
+      this.pushEvent("update_engagement_time", { time: additionalTime });
+    }
+  },
+};
+
+export default TrackingHooks;
